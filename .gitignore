@@ -1,0 +1,55 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Secrets folder
+secrets/
+
+# Build and object files
+**/bin/
+**/obj/
+**/out/
+
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+
+# IDE and editor files
+.vs/
+.vscode/
+.vscode/*
+!.vscode/extensions.json
+*.code-workspace
+
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# OS files
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+*.swp
+
+*.user
+*.csproj.user
+
+# Documentation
+*.md
+!README.md
