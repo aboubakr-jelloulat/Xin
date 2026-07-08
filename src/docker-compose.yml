@@ -1,6 +1,6 @@
 services:
     catalogdb:
-        image: postgres
+        image:  postgres:16
 
 volumes:
     postgres_catalog:
