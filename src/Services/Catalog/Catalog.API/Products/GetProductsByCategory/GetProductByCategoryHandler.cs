@@ -1,6 +1,20 @@
-﻿namespace Catalog.API.Products.GetProductsByCategory
+﻿namespace Catalog.API.Products.GetProductsByCategory;
+
+public record GetProductByCategoryQuery(string Category) : IQuery<GetProductByCategoryResult>;
+
+public record GetProductByCategoryResult(IEnumerable<Product> Products);
+
+
+public class GetProductByCategoryQueryHandler(IDocumentSession session) : IQueryHandler<GetProductByCategoryQuery, GetProductByCategoryResult>
 {
-    public class GetProductByCategoryHandler
+    public async Task<GetProductByCategoryResult> Handle(GetProductByCategoryQuery query, CancellationToken cancellationToken)
     {
+        //var products = await session.Query<Product>().Where(p => p.Category.Contains(query.category)).ToListAsync(cancellationToken);
+
+        var products = await session.Query<Product>()
+        .Where(p => p.Category.Contains(query.Category)).ToListAsync(cancellationToken);
+
+
+        return new GetProductByCategoryResult(products);
     }
 }

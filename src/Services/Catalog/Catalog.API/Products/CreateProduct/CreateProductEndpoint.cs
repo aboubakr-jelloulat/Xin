@@ -5,7 +5,7 @@ public record CreateProductRequest(
     List<string> Category,
     string Description,
     string ImageFile,
-    decimal Price) : ICommand<CreateProductResult>;
+    decimal Price);
 
 
 public record CreateProductResponse(Guid Id);
