@@ -1,6 +1,4 @@
-﻿using Marten.Linq.QueryHandlers;
-using Microsoft.AspNetCore.Http.HttpResults;
-
+﻿
 namespace Catalog.API.Products.GetProductById;
 
 public record GetProductByIdQuery(Guid Id) : IQuery<GetProductByIdResult>;
@@ -14,7 +12,7 @@ public class GetProductByIdQueryHandler(IDocumentSession session) : IQueryHandle
         var product = await session.LoadAsync<Product>(query.Id, cancellationToken);
 
         if (product is null)
-            return null;
+            throw new ProductNotFoundException(query.Id);
 
         return new GetProductByIdResult(product);
     }
