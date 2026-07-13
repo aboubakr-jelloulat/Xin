@@ -10,3 +10,5 @@ global using System.Collections;
 global using Catalog.API.Exceptions;
 global using Marten.Linq.QueryHandlers;
 global using Microsoft.AspNetCore.Http.HttpResults;
+global using FluentValidation;
+global using BuildingBlocks.Behavior;

@@ -1,8 +1,17 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCarter();
+var assembly = typeof(Program).Assembly;
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblies(assembly);
+    cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
+
+});
+
+builder.Services.AddValidatorsFromAssembly(assembly);
+
+builder.Services.AddCarter();
 
 builder.Services.AddMarten(options =>
 {
@@ -10,7 +19,7 @@ builder.Services.AddMarten(options =>
 }).UseLightweightSessions();
 
 
-builder.Services.AddEndpointsApiExplorer();  // Discovers your API endpoints
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 
