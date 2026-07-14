@@ -14,16 +14,30 @@ services:
       - Xin-network
 
   adminer:
-      image: adminer:latest
-      container_name: adminer
-      restart: unless-stopped
-      ports:
-        - "8888:8080"
-      networks:
-        - Xin-network
-      depends_on:
-        - catalogdb
+    image: adminer:latest
+    container_name: adminer
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
+    networks:
+      - Xin-network
+    depends_on:
+      - catalogdb
 
+  catalog.api:
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.API/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DefaultConnection=Host=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres
+    ports:
+      - "8080:8080"
+    networks:
+      - Xin-network
+    depends_on:
+      - catalogdb
 
 networks:
   Xin-network:
@@ -31,20 +45,3 @@ networks:
 
 volumes:
   postgres_catalog:
-
-
-
-
-  # catalog.api:
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_HTTP_PORTS=8080
-  #     - ASPNETCORE_HTTPS_PORTS=8081
-  #   ports:
-  #     - "8080"
-  #     - "8081"
-  #   volumes:
-  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #     - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-  #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-  #     - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
