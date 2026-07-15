@@ -25,6 +25,7 @@ services:
       - catalogdb
 
   catalog.api:
+    container_name: catalog.api
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
