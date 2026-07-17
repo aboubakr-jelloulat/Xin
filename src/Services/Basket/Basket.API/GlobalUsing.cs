@@ -5,4 +5,4 @@ global using Carter;
 global using Mapster;
 global using FluentValidation;
 global using BuildingBlocks.Behavior;
-
+global using Marten;
