@@ -1,3 +1,4 @@
+using BuildingBlock.Exceptions;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,10 @@ builder.Services.AddMarten(options =>
     options.Schema.For<ShoppingCart>().Identity(x => x.UserName);
 }).UseLightweightSessions();
 
+builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+
 builder.Services.AddCarter();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -35,5 +40,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapCarter();
+
+app.UseExceptionHandler(options => { });
 
 app.Run();

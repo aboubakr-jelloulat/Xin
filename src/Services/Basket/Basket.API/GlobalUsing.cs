@@ -6,3 +6,4 @@ global using Mapster;
 global using FluentValidation;
 global using BuildingBlocks.Behavior;
 global using Marten;
+global using Basket.API.Data;
