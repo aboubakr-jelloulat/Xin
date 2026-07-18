@@ -13,6 +13,20 @@ services:
     networks:
       - Xin-network
 
+  basketdb:
+    container_name: basket_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=BasketDb
+    restart: always
+    ports:
+      - "5433:5433"
+    volumes:
+      - postgres_basketdb:/var/lib/postgresql/data
+    networks:
+      - Xin-network
+
   adminer:
     image: adminer:latest
     container_name: adminer
