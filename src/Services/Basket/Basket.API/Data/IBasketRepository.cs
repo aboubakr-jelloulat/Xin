@@ -7,4 +7,5 @@ public interface IBasketRepository
     Task<ShoppingCart> GetBasket(string UserName, CancellationToken cancellationToken = default);
 
     Task<bool> DeleteBasket(string UserName, CancellationToken cancellationToken = default);
+
 }

@@ -28,7 +28,7 @@ builder.Services.AddSwaggerGen();
 // Register health checks
 builder.Services.AddHealthChecks()
     .AddNpgSql(
-        connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+        connectionString: builder.Configuration.GetConnectionString("DefaultConnection")!,
         healthQuery: "SELECT 1;", name: "CatalogDb", failureStatus: HealthStatus.Unhealthy);
 
 

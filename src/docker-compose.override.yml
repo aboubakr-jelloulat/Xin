@@ -27,6 +27,16 @@ services:
     networks:
       - Xin-network
 
+  distributedcache:
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data 
+    networks:
+      - Xin-network
+
   adminer:
     image: adminer:latest
     container_name: adminer
@@ -60,3 +70,6 @@ networks:
 
 volumes:
   postgres_catalog:
+  postgres_basketdb:
+  redis_data: 
+    

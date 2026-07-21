@@ -4,6 +4,9 @@ services:
 
   basketdb:
     image: postgres:16
+    
+  distributedcache:
+    image: redis:7.4-alpine
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi

@@ -4,7 +4,7 @@ using System.Text.Json;
 namespace Basket.API.Data;
 
 public class CachedBasketRepository(IBasketRepository repository, IDistributedCache cache) : IBasketRepository
-{   
+{
 
     public async Task<ShoppingCart> GetBasket(string UserName, CancellationToken cancellationToken = default)
     {
@@ -36,5 +36,4 @@ public class CachedBasketRepository(IBasketRepository repository, IDistributedCa
 
         return true;
     }
-
 }
