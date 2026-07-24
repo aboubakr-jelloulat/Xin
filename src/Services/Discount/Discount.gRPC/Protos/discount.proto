@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+option csharp_namespace = "Discount.gRPC.Protos";
+
+
+/*
+    This creates a namespace like scope for your protobuf messages.It prevents naming conflicts when you have multiple .proto files
+*/
+package discount;
+
+
+
+/*
+    A service is a collection of RPC methods that your server exposes. 
+    Think of it as a contract or interface that defines what operations are available.
+*/
+service DiscountProtoService {
+
+    rpc GetDiscount(GetDiscountRequest) returns (CouponModel);
+    
+    rpc CreateDiscount(CreateDiscountRequest) returns (CouponModel);
+
+    rpc UpdateDiscount(UpdateDiscountRequest) returns (CouponModel);
+
+    rpc DeleteDiscount(DeleteDiscountRequest) returns (DeleteDiscountResponse);
+}
+
+message GetDiscountRequest {
+    string  productName = 1;
+}
+
+message CouponModel {
+    int32   id = 1;
+    string  productName = 2;
+    string  description = 3;
+    int32   amount = 4;
+}
+
+message CreateDiscountRequest {
+    CouponModel coupon = 1;
+}
+
+message UpdateDiscountRequest {
+    CouponModel coupon = 1;
+}
+
+message DeleteDiscountRequest {
+    string productName = 1;
+}
+
+message DeleteDiscountResponse {
+    bool success = 1;
+}
