@@ -7,6 +7,7 @@
     <UserSecretsId>e37546a8-2b6f-42b4-a950-cb86eb3e6023</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     </PackageReference>
 	<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.10" />
 	<PackageReference Include="SQLitePCLRaw.bundle_e_sqlite3" Version="3.0.4" />
+	 <PackageReference Include="Mapster" Version="10.0.10" />
 	  
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.10">
       <PrivateAssets>all</PrivateAssets>

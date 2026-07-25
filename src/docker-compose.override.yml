@@ -87,6 +87,21 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 
 
+  discount.grpc:
+    container_name: discount.grpc
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ConnectionStrings__DataBase=Data Source=discountDb
+    ports:
+      - "6002:8080"
+    networks:
+      - Xin-network
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
 networks:
   Xin-network:
     driver: bridge
@@ -96,3 +111,4 @@ volumes:
   postgres_basketdb:
   redis_data: 
     
+

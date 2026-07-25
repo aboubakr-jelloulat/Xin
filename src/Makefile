@@ -9,6 +9,14 @@ all: up
 up:
 	$(COMPOSE) up -d --build
 
+
+# Generic target for any profile just use make servicename
+%:
+
+	@:
+	$(COMPOSE) up -d --build $@
+	
+
 ## Build images only, no start
 build:
 	$(COMPOSE) build
@@ -45,6 +53,3 @@ ps:
 	$(COMPOSE) ps
 
 
-## Open adminer in browser info
-adminer:
-	@echo "Adminer running at http://localhost:8888"
