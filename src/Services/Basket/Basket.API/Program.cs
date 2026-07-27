@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
 
+// App services
 builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblies(assembly);
@@ -9,8 +10,12 @@ builder.Services.AddMediatR(cfg =>
 
 });
 
+builder.Services.AddCarter(); // Minimal APIs 
+
 builder.Services.AddValidatorsFromAssembly(assembly);
 
+
+// Data Services
 builder.Services.AddMarten(options =>
 {
     options.Connection(builder.Configuration.GetConnectionString("DataBase")!);
@@ -28,7 +33,22 @@ builder.Services.Decorate<IBasketRepository, CachedBasketRepository>();
 
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-builder.Services.AddCarter();
+// gRpc Services
+
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(options =>
+{
+    options.Address = new Uri(builder.Configuration["gRPC_URL"]!);
+}).ConfigurePrimaryHttpMessageHandler(() =>
+{
+    var handler = new HttpClientHandler
+    {
+        ServerCertificateCustomValidationCallback =
+        HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+    };
+
+    return handler;
+}); // ssl cert 
+
 
 builder.Services.AddEndpointsApiExplorer();
 

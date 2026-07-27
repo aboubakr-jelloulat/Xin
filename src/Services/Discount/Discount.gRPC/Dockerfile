@@ -2,7 +2,12 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
+
+# Switch to root temporarily to create directory
+USER root
+RUN mkdir -p /app/data && chmod 777 /app/data
 USER $APP_UID
+
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081

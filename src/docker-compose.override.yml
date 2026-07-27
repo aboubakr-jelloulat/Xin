@@ -72,6 +72,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ConnectionStrings__DataBase=host=basketdb;port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
+      - "gRPC_URL=http://discount.grpc:8080"
 
     ports:
       - "6001:8080"
@@ -80,6 +81,7 @@ services:
     depends_on:
       - basketdb
       - distributedcache
+      - discount.grpc
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
@@ -92,7 +94,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ConnectionStrings__DataBase=Data Source=discountDb
+      - ConnectionStrings__DataBase=Data Source=/app/data/discountDb
     ports:
       - "6002:8080"
     networks:
@@ -102,6 +104,7 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - discount_data:/app/data
 networks:
   Xin-network:
     driver: bridge
@@ -110,5 +113,6 @@ volumes:
   postgres_catalog:
   postgres_basketdb:
   redis_data: 
+  discount_data:
     
 
