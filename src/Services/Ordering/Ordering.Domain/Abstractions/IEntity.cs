@@ -1,5 +1,9 @@
 ﻿namespace Ordering.Domain.Abstractions;
 
+/// <summary>
+/// Defines the common auditing information that every domain entity should expose,
+/// including creation and modification metadata.
+/// </summary>
 public interface IEntity
 {
     public DateTime? CreatedAt { get; set; }
@@ -10,10 +14,11 @@ public interface IEntity
 }
 
 /// <summary>
-///  adds the Id but it's generic (T) because not every entity's ID is the same type
+/// Defines a domain entity with a strongly typed identifier.
 /// </summary>
-/// <typeparam name="T"></typeparam>
-
+/// <typeparam name="T">
+/// The type of the entity identifier.
+/// </typeparam>
 
 public interface IEntity<T> : IEntity
 {
