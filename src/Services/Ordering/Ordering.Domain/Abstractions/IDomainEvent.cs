@@ -3,11 +3,11 @@
 namespace Ordering.Domain.Abstractions;
 
 /// <summary>
-/// Represents a domain event that describes something significant
-/// that has already occurred within the domain.
-///
-/// Domain events are used to notify other parts of the same domain
-/// so they can react to business changes without creating tight coupling.
+/// An event is something that has happened in the past.
+/// A domain event is, something that happened in the domain
+/// that you want other parts of the same domain (in-process) 
+///  to be aware of. The notified parts usually react somehow to the events.
+/// 
 ///
 /// Every domain event provides:
 /// - A unique event identifier.
