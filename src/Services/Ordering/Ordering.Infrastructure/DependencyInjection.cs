@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ordering.Infrastructure;
@@ -14,6 +13,8 @@ public static class DependencyInjection
         {
             options.UseSqlServer(connectionString);
         });
+
+        //services.AddScoped<>
 
         return (services);
     }

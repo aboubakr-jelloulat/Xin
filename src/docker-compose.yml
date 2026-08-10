@@ -1,12 +1,20 @@
 services:
+
+       # dataBases
+
   catalogdb:
     image: postgres:16
 
   basketdb:
     image: postgres:16
     
+  orderdb:
+    image: mcr.microsoft.com/mssql/server
+    
   distributedcache:
     image: redis:7.4-alpine
+
+
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi

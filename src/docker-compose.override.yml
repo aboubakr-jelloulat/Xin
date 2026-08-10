@@ -26,6 +26,17 @@ services:
       - postgres_basketdb:/var/lib/postgresql/data
     networks:
       - Xin-network
+ 
+  orderdb:
+     container_name: order_db
+     environment:
+       - ACCEPT_EULA=Y
+       - SA_PASSWORD=ajelloul@1337
+     restart: always
+     ports:
+        - "1433:1433"
+     networks:
+        - Xin-network
 
   distributedcache:
     container_name: redis
