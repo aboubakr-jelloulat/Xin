@@ -11,9 +11,14 @@ public static class DependencyInjection
     {
         var connectionString = configuration.GetConnectionString("DataBase");
 
-        services.AddDbContext<ApplicationDbContext>(options =>
+        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+
+        // sp.GetServices(..) => Give me ALL registered services implementing ISaveChangesInterceptor
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(new AuditableEntityInterceptor());
+            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
+
             options.UseSqlServer(connectionString);
         });
 

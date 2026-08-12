@@ -7,13 +7,13 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        //var assembly = Assembly.GetExecutingAssembly();
+        var assembly = Assembly.GetExecutingAssembly();
 
-        //services.AddMediatR(config =>
-        //{
-        //    config.RegisterServicesFromAssemblies(assembly);
+        services.AddMediatR(config =>
+        {
+            config.RegisterServicesFromAssemblies(assembly);
 
-        //});
+        });
 
         return (services);
     }

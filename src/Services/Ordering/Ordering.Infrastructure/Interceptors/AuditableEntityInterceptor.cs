@@ -27,7 +27,7 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
 
     public void UpdateEntities(DbContext? context)
     {
-        if (context == null) return;
+        if (context is null) return;
 
         foreach (var entry in context.ChangeTracker.Entries<IEntity>())
         {
@@ -45,9 +45,14 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
         }
     }
 
-
-    
 }
+
+/// <summary>
+    /// The purpose is:
+        //Check whether an entity has an EF Core owned entity that was added or modified.
+    //Why do we care?
+        //Because sometimes the parent entity isn't marked Modified, but one of its owned objects changed.
+/// </summary>
 
 public static class Extensions
 {
