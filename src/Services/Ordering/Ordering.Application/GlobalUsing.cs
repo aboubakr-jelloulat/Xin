@@ -4,7 +4,8 @@ global using FluentValidation;
 global using Ordering.Application.Data;
 global using Ordering.Domain.Models;
 global using Ordering.Domain.ValueObjects;
-
 global using MediatR;
 global using Ordering.Domain.Events;
+global using Microsoft.EntityFrameworkCore;
+global using Ordering.Application.Extensions;
 
