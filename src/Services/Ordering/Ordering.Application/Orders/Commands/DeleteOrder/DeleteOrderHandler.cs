@@ -1,10 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BuildingBlock.Exceptions;
 
-namespace Ordering.Application.Orders.Commands.DeleteOrder
+namespace Ordering.Application.Orders.Commands.DeleteOrder;
+
+public class DeleteOrderHandler(IApplicationDbContext dbContext) : ICommandHandler<DeleteOrderCommand, DeleteOrderResult>
 {
-    internal class DeleteOrderHandler
+    public async Task<DeleteOrderResult> Handle(DeleteOrderCommand command, CancellationToken cancellationToken)
     {
+
+
+        var orderId = OrderId.Of(command.OrderId);
+        var order = await dbContext.Orders.FindAsync([orderId], cancellationToken: cancellationToken);
+
+        if (order is null)
+        {
+            throw new NotFoundException($"Order With Id {command.OrderId} Not Found");
+        }
+
+        dbContext.Orders.Remove(order);
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return new DeleteOrderResult(true);
     }
 }

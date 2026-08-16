@@ -5,4 +5,6 @@ global using Ordering.Application.Data;
 global using Ordering.Domain.Models;
 global using Ordering.Domain.ValueObjects;
 
+global using MediatR;
+global using Ordering.Domain.Events;
 
