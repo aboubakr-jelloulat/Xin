@@ -1,3 +1,5 @@
+using BuildingBlock.Messaging.MassTransit;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly;
@@ -49,17 +51,18 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
     return handler;
 }); // ssl cert 
 
-
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerGen();
-
+builder.Services.AddMessageBroker(builder.Configuration);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(
         connectionString: builder.Configuration.GetConnectionString("DataBase")!,
         healthQuery: "SELECT 1;", name: "BasketDb", failureStatus: HealthStatus.Unhealthy)
     .AddRedis(redisConnectionString: builder.Configuration.GetConnectionString("Redis")!);
+
+
+builder.Services.AddEndpointsApiExplorer();
+
+builder.Services.AddSwaggerGen();
 
 
 var app = builder.Build();

@@ -12,3 +12,4 @@ global using Microsoft.Extensions.Diagnostics.HealthChecks;
 global using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 global using HealthChecks.UI.Client;
 global using Discount.gRPC.Protos;
+global using Basket.API.Dtos;
