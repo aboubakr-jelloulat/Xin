@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddApiServices(builder.Configuration).AddApplicationServices().AddInfrastructureServices(builder.Configuration);
+builder.Services.AddApiServices(builder.Configuration).AddApplicationServices(builder.Configuration).AddInfrastructureServices(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
