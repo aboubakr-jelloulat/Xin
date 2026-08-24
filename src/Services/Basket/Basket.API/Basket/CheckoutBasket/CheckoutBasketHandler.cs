@@ -12,19 +12,11 @@ public class CheckoutBasketCommandValidator : AbstractValidator<CheckoutBasketCo
     public CheckoutBasketCommandValidator()
     {
         RuleFor(x => x.BasketCheckoutDto)
-            .NotNull()
-            .WithMessage("Checkout data is required");
+            .NotNull().WithMessage("BasketCheckoutDto can't be null");
 
-        // If DTO exists, validate all properties
-        When(x => x.BasketCheckoutDto != null, () =>
-        {
-            RuleFor(x => x.BasketCheckoutDto.UserName)
-                .NotEmpty().WithMessage("Username is required")
-                .MaximumLength(50).WithMessage("Username cannot exceed 50 characters");
-
-            RuleFor(x => x.BasketCheckoutDto.CustomerId)
-                .NotEmpty().WithMessage("Customer ID is required");
-        });
+        RuleFor(x => x.BasketCheckoutDto.UserName)
+            .NotEmpty().WithMessage("UserName is required")
+            .When(x => x.BasketCheckoutDto is not null);
     }
 }
 
