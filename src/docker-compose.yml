@@ -14,7 +14,8 @@ services:
   distributedcache:
     image: redis:7.4-alpine
 
-
+  messagebroker:
+    image: rabbitmq:management
 
   catalog.api:
     image: ${DOCKER_REGISTRY-}catalogapi

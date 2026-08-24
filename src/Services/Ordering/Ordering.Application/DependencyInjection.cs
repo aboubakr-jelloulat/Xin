@@ -2,6 +2,7 @@
 using BuildingBlocks.Behavior;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FeatureManagement;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
@@ -19,6 +20,8 @@ public static class DependencyInjection
             config.AddOpenBehavior(typeof(ValidationBehavior<,>));
 
         });
+
+        services.AddFeatureManagement();
 
         services.AddMessageBroker(configuration, assembly); // Add MassTransit
 

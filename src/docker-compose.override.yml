@@ -48,6 +48,20 @@ services:
     networks:
       - Xin-network
 
+  messagebroker:
+    container_name: rabbitmq
+    environment:
+        - RABBITMQ_DEFAULT_USER=ajelloul
+        - RABBITMQ_DEFAULT_PASS=ajelloul@1337
+    ports:
+      - "5672:5672"    # AMQP protocol  (for app
+      - "15672:15672"  # Management UI port
+    volumes:
+        - rabbitmq_data:/var/lib/rabbitmq
+        - rabbitmq_logs:/var/log/rabbitmq
+    networks:
+        - Xin-network
+
   adminer:
     image: adminer:latest
     container_name: adminer
@@ -92,7 +106,7 @@ services:
     depends_on:
       - basketdb
       - distributedcache
-      - discount.grpc
+      - discount.grpc # add rabbitmq 
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
@@ -125,5 +139,7 @@ volumes:
   postgres_basketdb:
   redis_data: 
   discount_data:
+  rabbitmq_data:
+  rabbitmq_logs:
     
 
