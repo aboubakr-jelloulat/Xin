@@ -1,5 +1,17 @@
 ﻿namespace Ordering.Infrastructure.Configurations;
 
+
+/*
+    This is an EF Core configuration class that defines how the Order entity maps to a database table It tells EF Core:
+
+        Which properties map to database columns
+        Data types and constraints (max length, required/optional)
+        Relationships between entities
+        Default values and type conversions
+
+*/
+
+
 internal class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)

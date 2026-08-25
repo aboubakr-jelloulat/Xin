@@ -17,8 +17,7 @@ public class CheckoutBasketEndPoint : ICarterModule
             var response = result.Adapt<CheckoutBasketResponse>();
 
             return Results.Ok(response);
-        })
-        .WithGroupName("CheckoutBasket")
+        }).WithName("CheckoutBasketEndPoint")
         .Produces<CheckoutBasketResponse>(StatusCodes.Status200OK)
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status404NotFound)
