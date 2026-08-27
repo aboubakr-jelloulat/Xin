@@ -23,7 +23,7 @@ public class CheckoutBasketCommandValidator : AbstractValidator<CheckoutBasketCo
 public class CheckoutBasketHandler(IBasketRepository basketRepository, IPublishEndpoint publishEndpoint) : ICommandHandler<CheckoutBasketCommand, CheckoutBasketResult>
 {
     public async Task<CheckoutBasketResult> Handle(CheckoutBasketCommand command, CancellationToken cancellationToken)
-    {
+     {
         var basket = await basketRepository.GetBasket(command.BasketCheckoutDto.UserName, cancellationToken);
 
         if (basket is null)

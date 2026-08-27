@@ -50,6 +50,7 @@ services:
 
   messagebroker:
     container_name: rabbitmq
+    hostname: xin-mq
     environment:
         - RABBITMQ_DEFAULT_USER=ajelloul
         - RABBITMQ_DEFAULT_PASS=ajelloul@1337
@@ -98,7 +99,9 @@ services:
       - ConnectionStrings__DataBase=host=basketdb;port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - "gRPC_URL=http://discount.grpc:8080"
-
+      - MessageBroker__Host=amqp://xin-mq:5672
+      - MessageBroker__UserName=ajelloul
+      - MessageBroker__Password=ajelloul@1337
     ports:
       - "6001:8080"
     networks:
@@ -106,7 +109,8 @@ services:
     depends_on:
       - basketdb
       - distributedcache
-      - discount.grpc # add rabbitmq 
+      - discount.grpc
+      - messagebroker 
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
@@ -130,6 +134,36 @@ services:
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
       - discount_data:/app/data
+  
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__DataBase=Server=orderdb,1433;Database=OrderDb;User Id=sa;Password=ajelloul@1337;Encrypt=False;TrustServerCertificate=True;Connection Timeout=30;Command Timeout=30 
+      - MessageBroker__Host=amqp://xin-mq:5672
+      - MessageBroker__UserName=ajelloul
+      - MessageBroker__Password=ajelloul@1337
+      - FeatureManagement__OrderFullfilment=false
+    ports:
+      - "6003:8080"
+      - "6063:8081"
+    networks:
+        - Xin-network
+    depends_on:
+        - orderdb
+        - messagebroker 
+        
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ordering_data:/app/data
+
+
 networks:
   Xin-network:
     driver: bridge
@@ -139,7 +173,7 @@ volumes:
   postgres_basketdb:
   redis_data: 
   discount_data:
+  ordering_data:
   rabbitmq_data:
   rabbitmq_logs:
-    
 
