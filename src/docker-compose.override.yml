@@ -99,7 +99,7 @@ services:
       - ConnectionStrings__DataBase=host=basketdb;port=5432;Database=BasketDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
       - "gRPC_URL=http://discount.grpc:8080"
-      - MessageBroker__Host=amqp://xin-mq:5672
+      - MessageBroker__Host=amqp://messagebroker:5672
       - MessageBroker__UserName=ajelloul
       - MessageBroker__Password=ajelloul@1337
     ports:
@@ -143,7 +143,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__DataBase=Server=orderdb,1433;Database=OrderDb;User Id=sa;Password=ajelloul@1337;Encrypt=False;TrustServerCertificate=True;Connection Timeout=30;Command Timeout=30 
-      - MessageBroker__Host=amqp://xin-mq:5672
+      - MessageBroker__Host=amqp://messagebroker:5672
       - MessageBroker__UserName=ajelloul
       - MessageBroker__Password=ajelloul@1337
       - FeatureManagement__OrderFullfilment=false
